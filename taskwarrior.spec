@@ -15,6 +15,7 @@ URL:		http://taskwarrior.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	intltool
+BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
@@ -97,5 +98,6 @@ rm -rf $RPM_BUILD_ROOT
 %{bashdir}/%{shortname}
 
 %files -n vim-syntax-taskwarrior
+%defattr(644,root,root,755)
 %{vimdir}/ftdetect/*
 %{vimdir}/syntax/*
