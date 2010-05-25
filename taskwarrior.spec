@@ -4,12 +4,12 @@
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Name:		taskwarrior
-Version:	1.9.0
+Version:	1.9.1
 Release:	1
 License:	GPL v2
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	b9c12f60ff509c1ce5c6292041789baa
+# Source0-md5:	f486d06a9440a7034516de2a31659d3a
 Patch0:		%{name}-flags.patch
 URL:		http://taskwarrior.org/
 BuildRequires:	autoconf
