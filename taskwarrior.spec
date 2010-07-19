@@ -4,12 +4,12 @@
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Name:		taskwarrior
-Version:	1.9.1
-Release:	1
+Version:	1.9.2
+Release:	0.9
 License:	GPL v2
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	f486d06a9440a7034516de2a31659d3a
+# Source0-md5:	be98cc74fe03b8336250e0b7ed3cd8c7
 Patch0:		%{name}-flags.patch
 URL:		http://taskwarrior.org/
 BuildRequires:	autoconf
@@ -30,7 +30,7 @@ excellent CLI task manager by Paul Beckingham) with an interactive
 interface, a powerful search tool, hotkeys, forms data entry, and a
 host of new features.
 
-%description -l pl.UTF-8
+%description -l hu.UTF-8
 Taskwarrior egy törekvő project, amely a task-ot bővíti ki (a legjobb
 CLI feladatkezelő Paul Beckingham-től) egy interaktív felületettel,
 hatékony kereső eszközzel, hotkey-ekkel, űrlapokkal és új lehetőségek
@@ -63,7 +63,8 @@ Vim-syntax: taskwarrior.
 %{__autoheader}
 %{__automake}
 %configure \
-	--with-ncurses-inc=/usr/include/ncursesw
+	--with-ncurses-inc="$(pkg-config --variable=includedir ncurses++w)" \
+	--with-ncurses-lib="$(pkg-config --libs ncurses++w)"
 %{__make}
 
 %install
