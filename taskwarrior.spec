@@ -1,10 +1,11 @@
 %define		shortname	task
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
+Summary(pl.UTF-8):	Taskwarrior - konsolowy manadźer rzeczy do zrobienia
 Name:		taskwarrior
 Version:	1.9.2
-Release:	0.9
-License:	GPL v2
+Release:	1
+License:	GPL v2+
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
 # Source0-md5:	be98cc74fe03b8336250e0b7ed3cd8c7
@@ -35,21 +36,36 @@ CLI feladatkezelő Paul Beckingham-től) egy interaktív felületettel,
 hatékony kereső eszközzel, hotkey-ekkel, űrlapokkal és új lehetőségek
 tömegeivel.
 
+%description -l pl.UTF-8
+Taskwarrior jest ambitnym projektem mającym na celu ulepszenie
+programu task (najlepszego konsolowego manadżera zadań stworzonego
+przez Paula Beckinghama) poprzez dodanie interaktywnego interfejsu,
+potężnej wyszukiwarki, skrótów klawiszowych, formularzy wprowadzania
+danych i wiele innych ulepszeń.
+
 %package -n bash-completion-taskwarrior
 Summary:	bash-completion for taskwarrior
+Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla taskwarriora
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 
 %description -n bash-completion-taskwarrior
 bash-completion for taskwarrior.
 
+%description -n bash-completion-taskwarrior -l pl.UTF-8
+Pakiet ten dostarcza bashowe uzupełnianie nazw dla taskwarriora.
+
 %package -n vim-syntax-taskwarrior
 Summary:	Vim-syntax: taskwarrior
+Summary(pl.UTF-8):	Składnia dla Vima: taskwarrior
 Group:		Applications/Editors/Vim
 Requires:	%{name} = %{version}-%{release}
 
 %description -n vim-syntax-taskwarrior
 Vim-syntax: taskwarrior.
+
+%description -n vim-syntax-taskwarrior -l pl.UTF-8
+Ta wtyczka dostarcza podświetlanie składni dla taskwarriora.
 
 %prep
 %setup -q -n %{shortname}-%{version}
