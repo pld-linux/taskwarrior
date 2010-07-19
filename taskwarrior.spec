@@ -1,6 +1,4 @@
-# TODO:
-# - zsh completion subpackage (I don't know, what is the correct place)
-%define	shortname task
+%define		shortname	task
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Name:		taskwarrior
@@ -73,12 +71,10 @@ Vim-syntax: taskwarrior.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	bashscriptsdir=%{_sysconfdir}/bash_completion.d
 
 %{__rm} -rf $RPM_BUILD_ROOT%{_docdir}/%{shortname}
-
-install -d $RPM_BUILD_ROOT%{bashdir}
-install scripts/bash/task_completion.sh $RPM_BUILD_ROOT%{bashdir}/%{shortname}
 
 install -d $RPM_BUILD_ROOT%{vimdir}/{ftdetect,syntax}
 for dir in ftdetect syntax; do
@@ -98,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n bash-completion-taskwarrior
 %defattr(644,root,root,755)
-%{bashdir}/%{shortname}
+%{_sysconfdir}/bash_completion.d/*
 
 %files -n vim-syntax-taskwarrior
 %defattr(644,root,root,755)
