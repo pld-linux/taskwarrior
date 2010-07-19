@@ -11,13 +11,14 @@ Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
 # Source0-md5:	be98cc74fe03b8336250e0b7ed3cd8c7
 Patch0:		%{name}-flags.patch
+Patch1:		%{name}-tinfo.patch
 URL:		http://taskwarrior.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	intltool
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	ncurses-devel
+BuildRequires:	ncurses-ext-devel
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,6 +56,7 @@ Vim-syntax: taskwarrior.
 %prep
 %setup -q -n %{shortname}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
