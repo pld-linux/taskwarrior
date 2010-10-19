@@ -1,14 +1,15 @@
 %define		shortname	task
+%define		beta		beta1
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadźer rzeczy do zrobienia
 Name:		taskwarrior
-Version:	1.9.2
-Release:	1
+Version:	1.9.3
+Release:	0.%{beta}.1
 License:	GPL v2+
 Group:		Applications
-Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	be98cc74fe03b8336250e0b7ed3cd8c7
+Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.%{beta}.tar.gz
+# Source0-md5:	88795ca9a7665a22a00cd7f8bd51ca2d
 Patch0:		%{name}-flags.patch
 Patch1:		%{name}-tinfo.patch
 URL:		http://taskwarrior.org/
@@ -41,7 +42,7 @@ Taskwarrior jest ambitnym projektem mającym na celu ulepszenie
 programu task (najlepszego konsolowego manadżera zadań stworzonego
 przez Paula Beckinghama) poprzez dodanie interaktywnego interfejsu,
 potężnej wyszukiwarki, skrótów klawiszowych, formularzy wprowadzania
-danych i wiele innych ulepszeń.
+danych i wielu innych ulepszeń.
 
 %package -n bash-completion-taskwarrior
 Summary:	bash-completion for taskwarrior
@@ -68,7 +69,7 @@ Vim-syntax: taskwarrior.
 Ta wtyczka dostarcza podświetlanie składni dla taskwarriora.
 
 %prep
-%setup -q -n %{shortname}-%{version}
+%setup -q -n %{shortname}-%{version}.%{beta}
 %patch0 -p1
 %patch1 -p1
 
