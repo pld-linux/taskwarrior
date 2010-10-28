@@ -24,6 +24,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define bashdir	%{_sysconfdir}/bash_completion.d
 %define vimdir %{_datadir}/vim/vimfiles
+%define zshdir %{_datadir}/zsh/site-functions
 
 %description
 Taskwarrior is an ambitious project to supercharge task (most
@@ -68,6 +69,19 @@ Vim-syntax: taskwarrior.
 %description -n vim-syntax-taskwarrior -l pl.UTF-8
 Ta wtyczka dostarcza podświetlanie składni dla taskwarriora.
 
+%package -n zsh-completion-taskwarrior
+Summary:	zsh-completion for taskwarrior
+Summary(pl.UTF-8):	Uzupełnianie nazw w zsh dla taskwarriora
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+
+%description -n zsh-completion-taskwarrior
+zsh-completion for taskwarrior.
+
+%description -n zsh-completion-taskwarrior -l pl.UTF-8
+Pakiet ten dostarcza funkcje uzupełniania nazw powłoki zsh dla
+taskwarriora.
+
 %prep
 %setup -q -n %{shortname}-%{version}.%{beta}
 %patch0 -p1
@@ -88,15 +102,18 @@ Ta wtyczka dostarcza podświetlanie składni dla taskwarriora.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	bashscriptsdir=%{_sysconfdir}/bash_completion.d
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -rf $RPM_BUILD_ROOT%{_docdir}/%{shortname}
+
+install -d $RPM_BUILD_ROOT{%{bashdir},%{zshdir}}
+install -p scripts/bash/task_completion.sh $RPM_BUILD_ROOT%{bashdir}
+install -p scripts/zsh/_task $RPM_BUILD_ROOT%{zshdir}
 
 install -d $RPM_BUILD_ROOT%{vimdir}/{ftdetect,syntax}
 for dir in ftdetect syntax; do
 	install -d $RPM_BUILD_ROOT%{vimdir}/$dir
-	install scripts/vim/$dir/* $RPM_BUILD_ROOT%{vimdir}/$dir
+	install -p scripts/vim/$dir/* $RPM_BUILD_ROOT%{vimdir}/$dir
 done
 
 %clean
@@ -111,9 +128,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n bash-completion-taskwarrior
 %defattr(644,root,root,755)
-%{_sysconfdir}/bash_completion.d/*
+%{bashdir}/task_completion.sh
 
 %files -n vim-syntax-taskwarrior
 %defattr(644,root,root,755)
-%{vimdir}/ftdetect/*
-%{vimdir}/syntax/*
+%{vimdir}/ftdetect/*.vim
+%{vimdir}/syntax/*.vim
+
+%files -n zsh-completion-taskwarrior
+%defattr(644,root,root,755)
+%{zshdir}/_task
