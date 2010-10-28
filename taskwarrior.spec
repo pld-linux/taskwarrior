@@ -1,5 +1,5 @@
 %define		shortname	task
-%define		beta		beta1
+%define		beta		beta2
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadźer rzeczy do zrobienia
@@ -9,7 +9,7 @@ Release:	0.%{beta}.1
 License:	GPL v2+
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.%{beta}.tar.gz
-# Source0-md5:	88795ca9a7665a22a00cd7f8bd51ca2d
+# Source0-md5:	4d7956ca54947534537b6954c528bf44
 Patch0:		%{name}-flags.patch
 Patch1:		%{name}-tinfo.patch
 URL:		http://taskwarrior.org/
@@ -39,7 +39,7 @@ tömegeivel.
 
 %description -l pl.UTF-8
 Taskwarrior jest ambitnym projektem mającym na celu ulepszenie
-programu task (najlepszego konsolowego manadżera zadań stworzonego
+programu task (najlepszego konsolowego menadżera zadań stworzonego
 przez Paula Beckinghama) poprzez dodanie interaktywnego interfejsu,
 potężnej wyszukiwarki, skrótów klawiszowych, formularzy wprowadzania
 danych i wielu innych ulepszeń.
