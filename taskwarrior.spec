@@ -48,6 +48,7 @@ danych i wielu innych ulepszeń.
 Summary:	bash-completion for taskwarrior
 Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla taskwarriora
 Group:		Applications/Shells
+Requires:	bash-completion
 Requires:	%{name} = %{version}-%{release}
 
 %description -n bash-completion-taskwarrior
