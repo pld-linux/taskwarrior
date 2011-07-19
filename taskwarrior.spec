@@ -16,7 +16,6 @@ BuildRequires:	automake
 BuildRequires:	intltool
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	ncurses-ext-devel
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -91,9 +90,7 @@ taskwarriora.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure \
-	--with-ncurses-inc="$(pkg-config --variable=includedir ncurses++w)" \
-	--with-ncurses-lib="$(pkg-config --libs ncurses++w)"
+%configure
 %{__make}
 
 %install
