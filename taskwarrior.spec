@@ -3,12 +3,12 @@ Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadżer rzeczy do zrobienia
 Name:		taskwarrior
-Version:	2.0.0
+Version:	2.1.2
 Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	b850b49f8b69bb4049c07d0914a0f7af
+# Source0-md5:	ff0c712a18a47f79787b971b8d1ff207
 URL:		http://taskwarrior.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -95,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} -rf $RPM_BUILD_ROOT%{_docdir}/%{shortname}
 
 install -d $RPM_BUILD_ROOT{%{bashdir},%{zshdir}}
-install -p scripts/bash/task_completion.sh $RPM_BUILD_ROOT%{bashdir}
+install -p scripts/bash/task.sh $RPM_BUILD_ROOT%{bashdir}
 install -p scripts/zsh/_task $RPM_BUILD_ROOT%{zshdir}
 
 install -d $RPM_BUILD_ROOT%{vimdir}/{ftdetect,syntax}
@@ -116,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n bash-completion-taskwarrior
 %defattr(644,root,root,755)
-%{bashdir}/task_completion.sh
+%{bashdir}/task.sh
 
 %files -n vim-syntax-taskwarrior
 %defattr(644,root,root,755)
