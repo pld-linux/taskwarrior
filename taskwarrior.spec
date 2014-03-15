@@ -48,6 +48,9 @@ Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla taskwarriora
 Group:		Applications/Shells
 Requires:	bash-completion
 Requires:	%{name} = %{version}-%{release}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n bash-completion-taskwarrior
 bash-completion for taskwarrior.
@@ -60,6 +63,9 @@ Summary:	Vim-syntax: taskwarrior
 Summary(pl.UTF-8):	Składnia dla Vima: taskwarrior
 Group:		Applications/Editors/Vim
 Requires:	%{name} = %{version}-%{release}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n vim-syntax-taskwarrior
 Vim-syntax: taskwarrior.
@@ -72,6 +78,9 @@ Summary:	zsh-completion for taskwarrior
 Summary(pl.UTF-8):	Uzupełnianie nazw w zsh dla taskwarriora
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n zsh-completion-taskwarrior
 zsh-completion for taskwarrior.
