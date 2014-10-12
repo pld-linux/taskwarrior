@@ -4,7 +4,7 @@ Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadżer rzeczy do zrobienia
 Name:		taskwarrior
 Version:	2.3.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
@@ -20,6 +20,7 @@ BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define bashdir	%{_sysconfdir}/bash_completion.d
+%define fishdir %{_datadir}/fish/completions
 %define vimdir %{_datadir}/vim/vimfiles
 %define zshdir %{_datadir}/zsh/site-functions
 
@@ -46,8 +47,8 @@ danych i wielu innych ulepszeń.
 Summary:	bash-completion for taskwarrior
 Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla taskwarriora
 Group:		Applications/Shells
-Requires:	bash-completion
 Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
@@ -57,6 +58,22 @@ bash-completion for taskwarrior.
 
 %description -n bash-completion-taskwarrior -l pl.UTF-8
 Pakiet ten dostarcza bashowe uzupełnianie nazw dla taskwarriora.
+
+%package -n fish-completion-taskwarrior
+Summary:	fish-completion for taskwarrior
+Summary(pl.UTF-8):	Uzupełnianie nazw w fish dla taskwarriora
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	fish
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description -n fish-completion-taskwarrior
+fish-completion for taskwarrior.
+
+%description -n fish-completion-taskwarrior -l pl.UTF-8
+Pakiet ten dostarcza uzupełnianie nazw w fish dla taskwarriora.
 
 %package -n vim-syntax-taskwarrior
 Summary:	Vim-syntax: taskwarrior
@@ -103,8 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} -rf $RPM_BUILD_ROOT%{_docdir}/%{shortname}
 
-install -d $RPM_BUILD_ROOT{%{bashdir},%{zshdir}}
+install -d $RPM_BUILD_ROOT{%{bashdir},%{fishdir},%{zshdir}}
 install -p scripts/bash/task.sh $RPM_BUILD_ROOT%{bashdir}
+install -p scripts/fish/task.fish $RPM_BUILD_ROOT%{fishdir}
 install -p scripts/zsh/_task $RPM_BUILD_ROOT%{zshdir}
 
 install -d $RPM_BUILD_ROOT%{vimdir}/{ftdetect,syntax}
@@ -127,6 +145,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n bash-completion-taskwarrior
 %defattr(644,root,root,755)
 %{bashdir}/task.sh
+
+%files -n fish-completion-taskwarrior
+%defattr(644,root,root,755)
+%{fishdir}/task.fish
 
 %files -n vim-syntax-taskwarrior
 %defattr(644,root,root,755)
