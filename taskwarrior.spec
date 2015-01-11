@@ -3,19 +3,17 @@ Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadżer rzeczy do zrobienia
 Name:		taskwarrior
-Version:	2.3.0
-Release:	2
+Version:	2.4.0
+Release:	1
 License:	MIT
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	2c1d2c64311855f3519ad038ebd372ac
+# Source0-md5:	de4b64b3d28bb9636af219a486552cd0
 URL:		http://taskwarrior.org/
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	cmake
-BuildRequires:	intltool
+BuildRequires:	cmake >= 2.8
+BuildRequires:	gnutls-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
+BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -136,9 +134,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README i18n doc/rc
+%doc AUTHORS ChangeLog DEVELOPER EXPOSITION NEWS README.md doc/rc
 %attr(755,root,root) %{_bindir}/%{shortname}
-%attr(755,root,root) %{_bindir}/tasksh
 %{_mandir}/man1/*1*
 %{_mandir}/man5/*5*
 
