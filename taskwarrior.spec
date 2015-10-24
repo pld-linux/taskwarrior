@@ -3,12 +3,12 @@ Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadżer rzeczy do zrobienia
 Name:		taskwarrior
-Version:	2.4.4
+Version:	2.5.0
 Release:	1
 License:	MIT
 Group:		Applications
 Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	517450c4a23a5842df3e9905b38801b3
+# Source0-md5:	bca2a8a6f7727ccbcefd5e190d935910
 URL:		http://taskwarrior.org/
 BuildRequires:	cmake >= 2.8
 BuildRequires:	gnutls-devel
