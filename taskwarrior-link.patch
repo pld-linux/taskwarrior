@@ -1,0 +1,15 @@
+--- task-2.5.3/src/CMakeLists.txt.orig	2021-01-04 06:30:22.000000000 +0100
++++ task-2.5.3/src/CMakeLists.txt	2021-01-29 22:08:29.085604445 +0100
+@@ -50,9 +50,9 @@
+ add_executable (lex_executable lex.cpp)
+ 
+ # Yes, 'task' (and hence libshared) is included twice, otherwise linking fails on assorted OSes.
+-target_link_libraries (task_executable task commands columns libshared task libshared ${TASK_LIBRARIES})
+-target_link_libraries (calc_executable task commands columns libshared task libshared ${TASK_LIBRARIES})
+-target_link_libraries (lex_executable  task commands columns libshared task libshared ${TASK_LIBRARIES})
++target_link_libraries (task_executable task commands columns libshared libshared ${TASK_LIBRARIES})
++target_link_libraries (calc_executable task commands columns libshared libshared ${TASK_LIBRARIES})
++target_link_libraries (lex_executable  task commands columns libshared libshared ${TASK_LIBRARIES})
+ 
+ set_property (TARGET task_executable PROPERTY OUTPUT_NAME "task")
+ 
