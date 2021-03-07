@@ -49,7 +49,7 @@ Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla taskwarriora
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n bash-completion-taskwarrior
 bash-completion for taskwarrior.
@@ -63,7 +63,7 @@ Summary(pl.UTF-8):	Uzupełnianie nazw w fish dla taskwarriora
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	fish
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n fish-completion-taskwarrior
 fish-completion for taskwarrior.
@@ -76,7 +76,7 @@ Summary:	Vim-syntax: taskwarrior
 Summary(pl.UTF-8):	Składnia dla Vima: taskwarrior
 Group:		Applications/Editors/Vim
 Requires:	%{name} = %{version}-%{release}
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n vim-syntax-taskwarrior
 Vim-syntax: taskwarrior.
@@ -89,7 +89,7 @@ Summary:	zsh-completion for taskwarrior
 Summary(pl.UTF-8):	Uzupełnianie nazw w zsh dla taskwarriora
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description -n zsh-completion-taskwarrior
 zsh-completion for taskwarrior.
