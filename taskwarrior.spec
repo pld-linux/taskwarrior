@@ -7,7 +7,7 @@ Version:	2.6.2
 Release:	1
 License:	MIT
 Group:		Applications
-Source0:	http://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
+Source0:	https://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
 # Source0-md5:	a9e69fd612e8ad538b9f512c80b18122
 URL:		http://taskwarrior.org/
 BuildRequires:	cmake >= 3.0
