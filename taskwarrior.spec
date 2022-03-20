@@ -15,6 +15,7 @@ BuildRequires:	gnutls-devel
 BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
