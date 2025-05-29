@@ -1,22 +1,37 @@
 %define		shortname	task
+%define		crates_ver	3.4.1
+
 Summary:	Taskwarrior is a command-line to do list manager
 Summary(hu.UTF-8):	Taskwarrior egy parancssoros ToDo-kezelő
 Summary(pl.UTF-8):	Taskwarrior - konsolowy manadżer rzeczy do zrobienia
 Name:		taskwarrior
-Version:	2.6.2
+Version:	3.4.1
 Release:	1
 License:	MIT
 Group:		Applications
-Source0:	https://www.taskwarrior.org/download/%{shortname}-%{version}.tar.gz
-# Source0-md5:	a9e69fd612e8ad538b9f512c80b18122
+Source0:	https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v%{version}/task-%{version}.tar.gz
+# Source0-md5:	840e8830305d675a9d36526361887e00
+Source1:	%{name}-crates-%{crates_ver}.tar.xz
+# Source1-md5:	b252f21b4ed995e452214e7e7c0c1aa3
+Patch0:		system-sqlite3.patch
 URL:		http://taskwarrior.org/
-BuildRequires:	cmake >= 3.0
-BuildRequires:	gnutls-devel
+BuildRequires:	cargo
+BuildRequires:	clang
+%ifnarch x32
+BuildRequires:	clang-devel
+%else
+BuildRequires:	clang-devel(x86-64)
+%endif
+BuildRequires:	cmake >= 3.22
 BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.004
+BuildRequires:	rust
+BuildRequires:	sqlite3-devel
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define vimdir %{_datadir}/vim/vimfiles
@@ -96,15 +111,60 @@ Pakiet ten dostarcza funkcje uzupełniania nazw powłoki zsh dla
 taskwarriora.
 
 %prep
-%setup -q -n %{shortname}-%{version}
+%setup -q -n %{shortname}-%{version} -a1
+%patch -P0 -p1
+mv %{shortname}-%{crates_ver}/vendor .
+
+export CARGO_HOME="$(pwd)/.cargo"
+
+mkdir -p "$CARGO_HOME"
+cat >.cargo/config <<EOF
+[source.crates-io]
+registry = 'https://github.com/rust-lang/crates.io-index'
+replace-with = 'vendored-sources'
+
+[source.vendored-sources]
+directory = '$PWD/vendor'
+EOF
 
 %build
-%cmake
+export CARGO_HOME="$(pwd)/.cargo"
+install -d .cxxbridge
+%cargo_install -f --locked --root .cxxbridge cxxbridge-cmd
+export PATH=$PATH:$(pwd)/.cxxbridge/bin
+export BINDGEN_EXTRA_CLANG_ARGS="%{rpmcflags} %{rpmcppflags}"
+%ifnarch x32
+export LIBCLANG_PATH="%{_libdir}"
+%else
+export LIBCLANG_PATH=/usr/lib64
+%endif
+export LIBSQLITE3_SYS_USE_PKG_CONFIG=true
+%cmake -B build \
+	-DRust_CARGO_TARGET="%rust_target" \
+	-DCOR_FROZEN=ON \
+	-DENABLE_TLS_NATIVE_ROOTS=ON
+
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+export CARGO_HOME="$(pwd)/.cargo"
+export CC="%{__cc}"
+export CXX="%{__cxx}"
+export CFLAGS="%{rpmcflags}"
+export CXXFLAGS="%{rpmcxxflags}"
+export CPPFLAGS="%{rpmcppflags}"
+export LDFLAGS="%{rpmldflags}"
+export RUSTFLAGS="${RUSTFLAGS:-%{rpmrustflags}}"
+export BINDGEN_EXTRA_CLANG_ARGS="%{rpmcflags} %{rpmcppflags}"
+%ifnarch x32
+export LIBCLANG_PATH="%{_libdir}"
+%else
+export LIBCLANG_PATH=/usr/lib64
+%endif
+export LIBSQLITE3_SYS_USE_PKG_CONFIG=true
+%{__make} install -C build \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -rf $RPM_BUILD_ROOT%{_docdir}/%{shortname}
@@ -125,7 +185,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog DEVELOPER.md NEWS README.md doc/rc
+%doc AUTHORS ChangeLog DEVELOPER.md README.md doc/rc
 %attr(755,root,root) %{_bindir}/%{shortname}
 %{_mandir}/man1/task.1*
 %{_mandir}/man5/task-color.5*

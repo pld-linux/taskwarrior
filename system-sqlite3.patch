@@ -1,0 +1,8 @@
+--- task-3.4.1/src/taskchampion-cpp/CMakeLists.txt.orig	2025-03-15 00:36:42.000000000 +0100
++++ task-3.4.1/src/taskchampion-cpp/CMakeLists.txt	2025-05-29 20:22:06.907562065 +0200
+@@ -27,3 +27,5 @@
+   CRATE taskchampion_lib
+   FILES lib.rs
+ )
++
++target_link_libraries(taskchampion-cpp PRIVATE sqlite3)
