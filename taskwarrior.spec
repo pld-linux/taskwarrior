@@ -127,8 +127,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog DEVELOPER.md NEWS README.md doc/rc
 %attr(755,root,root) %{_bindir}/%{shortname}
-%{_mandir}/man1/*1*
-%{_mandir}/man5/*5*
+%{_mandir}/man1/task.1*
+%{_mandir}/man5/task-color.5*
+%{_mandir}/man5/task-sync.5*
+%{_mandir}/man5/taskrc.5*
 
 %files -n bash-completion-taskwarrior
 %defattr(644,root,root,755)
