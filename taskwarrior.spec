@@ -19,10 +19,7 @@ BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define bashdir	%{_sysconfdir}/bash_completion.d
-%define fishdir %{_datadir}/fish/completions
 %define vimdir %{_datadir}/vim/vimfiles
-%define zshdir %{_datadir}/zsh/site-functions
 
 %description
 Taskwarrior is an ambitious project to supercharge task (most
@@ -112,10 +109,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} -rf $RPM_BUILD_ROOT%{_docdir}/%{shortname}
 
-install -d $RPM_BUILD_ROOT{%{bashdir},%{fishdir},%{zshdir}}
-install -p scripts/bash/task.sh $RPM_BUILD_ROOT%{bashdir}
-install -p scripts/fish/task.fish $RPM_BUILD_ROOT%{fishdir}
-install -p scripts/zsh/_task $RPM_BUILD_ROOT%{zshdir}
+install -d $RPM_BUILD_ROOT{%{bash_compdir},%{fish_compdir},%{zsh_compdir}}
+install -p scripts/bash/task.sh $RPM_BUILD_ROOT%{bash_compdir}
+install -p scripts/fish/task.fish $RPM_BUILD_ROOT%{fish_compdir}
+install -p scripts/zsh/_task $RPM_BUILD_ROOT%{zsh_compdir}
 
 install -d $RPM_BUILD_ROOT%{vimdir}/{ftdetect,syntax}
 for dir in ftdetect syntax; do
@@ -135,11 +132,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n bash-completion-taskwarrior
 %defattr(644,root,root,755)
-%{bashdir}/task.sh
+%{bash_compdir}/task.sh
 
 %files -n fish-completion-taskwarrior
 %defattr(644,root,root,755)
-%{fishdir}/task.fish
+%{fish_compdir}/task.fish
 
 %files -n vim-syntax-taskwarrior
 %defattr(644,root,root,755)
@@ -148,4 +145,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n zsh-completion-taskwarrior
 %defattr(644,root,root,755)
-%{zshdir}/_task
+%{zsh_compdir}/_task
