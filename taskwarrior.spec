@@ -31,7 +31,9 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define vimdir %{_datadir}/vim/vimfiles
+%define		vimdir		%{_datadir}/vim/vimfiles
+
+%define		filterout	-fvar-tracking-assignments
 
 %description
 Taskwarrior is an ambitious project to supercharge task (most
