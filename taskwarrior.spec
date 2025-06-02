@@ -17,11 +17,7 @@ Patch0:		system-sqlite3.patch
 URL:		http://taskwarrior.org/
 BuildRequires:	cargo
 BuildRequires:	clang
-%ifnarch x32
 BuildRequires:	clang-devel
-%else
-BuildRequires:	clang-devel(x86-64)
-%endif
 BuildRequires:	cmake >= 3.22
 BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	libuuid-devel
@@ -29,6 +25,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.004
 BuildRequires:	rust
+BuildRequires:	rust-bindgen
 BuildRequires:	sqlite3-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -133,11 +130,7 @@ install -d .cxxbridge
 %cargo_install -f --locked --root .cxxbridge cxxbridge-cmd
 export PATH=$PATH:$(pwd)/.cxxbridge/bin
 export BINDGEN_EXTRA_CLANG_ARGS="%{rpmcflags} %{rpmcppflags}"
-%ifnarch x32
 export LIBCLANG_PATH="%{_libdir}"
-%else
-export LIBCLANG_PATH=/usr/lib64
-%endif
 export LIBSQLITE3_SYS_USE_PKG_CONFIG=true
 %cmake -B build \
 	-DRust_CARGO_TARGET="%rust_target" \
@@ -158,11 +151,7 @@ export CPPFLAGS="%{rpmcppflags}"
 export LDFLAGS="%{rpmldflags}"
 export RUSTFLAGS="${RUSTFLAGS:-%{rpmrustflags}}"
 export BINDGEN_EXTRA_CLANG_ARGS="%{rpmcflags} %{rpmcppflags}"
-%ifnarch x32
 export LIBCLANG_PATH="%{_libdir}"
-%else
-export LIBCLANG_PATH=/usr/lib64
-%endif
 export LIBSQLITE3_SYS_USE_PKG_CONFIG=true
 %{__make} install -C build \
 	DESTDIR=$RPM_BUILD_ROOT
