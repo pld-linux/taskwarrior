@@ -1,0 +1,14 @@
+--- task-3.4.1/vendor/aws-lc-sys/aws-lc/crypto/fipsmodule/rand/getrandom_fillin.h~	2025-05-29 20:55:20.000000000 +0200
++++ task-3.4.1/vendor/aws-lc-sys/aws-lc/crypto/fipsmodule/rand/getrandom_fillin.h	2025-12-25 01:37:04.653314576 +0100
+@@ -23,7 +23,11 @@
+ #include <sys/syscall.h>
+ 
+ #if defined(OPENSSL_X86_64)
++#if defined(__ILP32__)
++#define EXPECTED_NR_getrandom (__X32_SYSCALL_BIT + 318)
++#else
+ #define EXPECTED_NR_getrandom 318
++#endif
+ #elif defined(OPENSSL_X86)
+ #define EXPECTED_NR_getrandom 355
+ #elif defined(OPENSSL_AARCH64)

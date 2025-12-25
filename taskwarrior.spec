@@ -14,6 +14,7 @@ Source0:	https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v
 Source1:	%{name}-crates-%{crates_ver}.tar.xz
 # Source1-md5:	b252f21b4ed995e452214e7e7c0c1aa3
 Patch0:		system-sqlite3.patch
+Patch1:		x32.patch
 URL:		http://taskwarrior.org/
 BuildRequires:	cargo
 BuildRequires:	clang
@@ -113,7 +114,11 @@ taskwarriora.
 %prep
 %setup -q -n %{shortname}-%{version} -a1
 %patch -P0 -p1
-mv %{shortname}-%{crates_ver}/vendor .
+%{__mv} %{shortname}-%{crates_ver}/vendor .
+%patch -P1 -p1
+
+%{__sed} -i -e 's/b685e62377b0009752e64381aa4cfe2fff0f8c12dda3be67e10186982c4185c8/3d87220bada558ca62abff3826db865da0d29679fe09c086d87068517a43ed8f/' \
+	vendor/aws-lc-sys/.cargo-checksum.json
 
 export CARGO_HOME="$(pwd)/.cargo"
 
